@@ -33,9 +33,10 @@ class Trello extends q.DesktopApp {
     return this.getNewActions().then(newActions => {
       if (newActions && newActions.length > 0) {
         logger.info("Got " + newActions.length + " new actions.");
-        return new q.Signal([
-          [new q.Point("#00FF00")]
-        ]);
+        return new q.Signal({
+          points: [[new q.Point("#00FF00")]],
+          name: `You have ${newActions.length} new actions in Trello.`
+        });
       } else {
         return null;
       }
