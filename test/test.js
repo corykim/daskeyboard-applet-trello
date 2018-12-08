@@ -2,9 +2,12 @@ const assert = require('assert');
 const t = require('../index');
 const auth = require('./auth.json');
 
+const apiKey = auth.apiKey;
+const token = auth.token;
+
 describe('getBoards', function () {
   it('can get boards', function () {
-    return t.getBoards(auth.apiKey, auth.token).then((boards) => {
+    return t.getBoards(apiKey, token).then((boards) => {
       console.log("Boards: ", boards);
       assert.ok(boards);
       assert.ok(boards[0]);
@@ -18,7 +21,7 @@ describe('getBoards', function () {
 describe('getActionsForBoard', function () {
   it('can get actions for board', function () {
     return t.getActionsForBoard('5be9f7545b05e45e0092f4dd',
-      auth.apiKey, auth.token).then(actions => {
+      apiKey, token).then(actions => {
       console.log('Actions: ', actions);
       assert.ok(actions);
       assert.ok(actions[0]);
@@ -40,7 +43,11 @@ describe('Trello', () => {
         height: 1,
       },
       authorization: auth,
-      applet: {}
+      applet: {
+        user: {
+          token: token,
+        }
+      }
     });
 
     return app;

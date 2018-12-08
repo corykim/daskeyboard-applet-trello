@@ -51,12 +51,15 @@ class Trello extends q.DesktopApp {
 
     logger.info("Checking for actions since: " + lastActionDate);
 
-    return getBoards(this.authorization.apiKey,
-      this.authorization.token).then(async (boards) => {
+    const apiKey = this.authorization.apiKey;
+    const token = this.config.token;
+
+    return getBoards(apiKey,
+      token).then(async (boards) => {
       if (boards && boards.length > 0) {
         for (let board of boards) {
           const actions = await getActionsForBoard(board.id,
-            this.authorization.apiKey, this.authorization.token);
+            apiKey, token);
           for (let action of actions) {
             if (action.date > lastActionDate) {
               logger.info(

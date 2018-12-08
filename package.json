@@ -39,6 +39,17 @@
     "applet": {
       "defaults": {}
     },
+    "questions": [
+      {
+        "key": "token",
+        "label": "Enter your Server Token",
+        "help": "You can generate a Server Token by going to https://trello.com/app-key/",
+        "supportUrl": "https://trello.com/app-key/",
+        "required": true,
+        "order": 1,
+        "controlType": "textbox"
+      }
+    ],
     "authorization": {
       "type": "apiKey",
       "hint": "Login or signup for free to get your API key",
