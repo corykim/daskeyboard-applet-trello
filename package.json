@@ -9,7 +9,7 @@
   "isSingleton": false,
   "videoUrl": "",
   "icon": "assets/icon.png",
-  "image":"assets/image.png",
+  "image":"assets/image-missing.png",
   "publisher": "Das Keyboard",
   "authorName": "Das Keyboard",
   "authorUrl": "https://twitter.com/daskeyboard",
@@ -35,9 +35,6 @@
     "geometry": {
       "width": 1,
       "height": 1
-    },
-    "applet": {
-      "defaults": {}
     },
     "questions": [
       {
