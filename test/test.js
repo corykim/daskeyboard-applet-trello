@@ -8,7 +8,6 @@ const token = auth.token;
 describe('getBoards', function () {
   it('can get boards', function () {
     return t.getBoards(apiKey, token).then((boards) => {
-      console.log("Boards: ", boards);
       assert.ok(boards);
       assert.ok(boards[0]);
       assert.ok(boards[0].id);
@@ -22,7 +21,6 @@ describe('getActionsForBoard', function () {
   it('can get actions for board', function () {
     return t.getActionsForBoard('5be9f7545b05e45e0092f4dd',
       apiKey, token).then(actions => {
-      console.log('Actions: ', actions);
       assert.ok(actions);
       assert.ok(actions[0]);
       assert.ok(actions[0].id);
@@ -54,9 +52,9 @@ describe('Trello', () => {
   }
 
   describe('#getNewActions', () => {
-    it('can get new actions with null lastActionDate', function () {
-      return makeApp().then(app => {
-        app.store.put(t.keyLastActionDate, null);
+    it("gets new actions with old timestamp", async function () {
+      return makeApp().then(async app => {
+        app.timestamp = new Date('2018-01-17T03:24:00').toISOString();
         return app.getNewActions().then(actions => {
           assert.ok(actions);
           assert.ok(actions[0]);
@@ -67,23 +65,8 @@ describe('Trello', () => {
       })
     });
 
-    it("gets new actions with old lastActionDate", function () {
-      return makeApp().then(app => {
-        app.store.put(t.keyLastActionDate, 
-          new Date('2018-01-17T03:24:00').toISOString());
-        return app.getNewActions().then(actions => {
-          assert.ok(actions);
-          assert.ok(actions[0]);
-          assert.ok(actions[0].id);
-        }).catch(error => {
-          assert.fail(error);
-        })
-      })
-    });
-
-    it("doesn't return new actions with current lastActionDate", function () {
-      return makeApp().then(app => {
-        app.store.put(t.keyLastActionDate, new Date().toISOString);
+    it("doesn't return new actions with current timestamp", async function () {
+      return makeApp().then(async app => {
         return app.getNewActions().then(actions => {
           assert.ok(actions);
           assert(actions.length === 0);
@@ -95,13 +78,16 @@ describe('Trello', () => {
   });
 
   describe('#run()', () => {
-    return makeApp().then(app => {
-      return app.run().then((signal) => {
-        console.log(signal);
-        assert.ok(signal);
-      }).catch((error) => {
-        assert.fail(error)
-      });
+    it('runs', async function () {
+      return makeApp().then(async app => {
+        app.timestamp = new Date('2018-01-17T03:24:00').toISOString();
+        return app.run().then((signal) => {
+          console.log(signal);
+          assert.ok(signal);
+        }).catch((error) => {
+          assert.fail(error)
+        });
+      })
     })
   })
 })

@@ -27,10 +27,20 @@ async function getActionsForBoard(boardId, apiKey, token) {
   });
 }
 
+function getTimestamp(date) {
+  date = date || new Date();
+  return date.toISOString();
+}
+
 class Trello extends q.DesktopApp {
+  constructor() {
+    super();
+    this.timestamp = getTimestamp();
+  }
   async run() {
     console.log("Running.");
     return this.getNewActions().then(newActions => {
+      this.timestamp = getTimestamp();
       if (newActions && newActions.length > 0) {
         logger.info("Got " + newActions.length + " new actions.");
         return new q.Signal({
@@ -45,11 +55,8 @@ class Trello extends q.DesktopApp {
 
   async getNewActions() {
     const newActions = [];
-    const lastActionDate = this.store.get(keyLastActionDate) ||
-      '';
-    let newestActionDate = null;
 
-    logger.info("Checking for actions since: " + lastActionDate);
+    logger.info("Checking for actions since: " + this.timestamp);
 
     const apiKey = this.authorization.apiKey;
     const token = this.config.token;
@@ -61,20 +68,13 @@ class Trello extends q.DesktopApp {
           const actions = await getActionsForBoard(board.id,
             apiKey, token);
           for (let action of actions) {
-            if (action.date > lastActionDate) {
+            if (action.date > this.timestamp) {
               logger.info(
-                `Found new action date ${action.date} (vs: ${lastActionDate})`);
-              if (action.date > newestActionDate) {
-                newestActionDate = action.date;
-              }
+                `Found new action date ${action.date} (vs: ${this.timestamp})`);
               newActions.push(action);
             }
           }
         }
-      }
-
-      if (newestActionDate != null) {
-        this.store.put(keyLastActionDate, newestActionDate);
       }
 
       return newActions;
@@ -89,6 +89,7 @@ class Trello extends q.DesktopApp {
 module.exports = {
   getBoards: getBoards,
   getActionsForBoard: getActionsForBoard,
+  getTimestamp: getTimestamp,
   keyLastActionDate: keyLastActionDate,
   Trello: Trello
 }
