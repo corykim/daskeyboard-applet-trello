@@ -50,7 +50,7 @@
     "authorization": {
       "type": "apiKey",
       "hint": "Login or signup for free to get your API key",
-      "supportUrl": "https://trello.com"
+      "supportUrl": "https://trello.com/app-key/"
     },
     "requirements": {
       "authorization": "basic",
