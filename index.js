@@ -36,6 +36,8 @@ class Trello extends q.DesktopApp {
   constructor() {
     super();
     this.timestamp = getTimestamp();
+    // run every 1 min
+    this.pollingInterval = 1*60*1000;
   }
 
   generateSignal(actions) {
