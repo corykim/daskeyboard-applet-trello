@@ -77,12 +77,27 @@ describe('Trello', () => {
     });
   });
 
+  describe('#generateSignal()', () => {
+    it('generates a signal', async function () {
+      return makeApp().then(async app => {
+        const actions = require('./test-actions.json');
+        const signal = app.generateSignal(actions);
+        console.log(signal);
+        assert.ok(signal);
+        assert(signal.message.includes(`You have ${actions.length}`));
+        assert(signal.link.url.includes('https://trello.com'));
+        assert(signal.link.label.includes('Check'));
+      }).catch((error) => {
+        assert.fail(error)
+      });
+    })
+  })
+
   describe('#run()', () => {
     it('runs', async function () {
       return makeApp().then(async app => {
         app.timestamp = new Date('2018-01-17T03:24:00').toISOString();
         return app.run().then((signal) => {
-          console.log(signal);
           assert.ok(signal);
         }).catch((error) => {
           assert.fail(error)

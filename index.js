@@ -37,16 +37,29 @@ class Trello extends q.DesktopApp {
     super();
     this.timestamp = getTimestamp();
   }
+
+  generateSignal(actions) {
+    return new q.Signal({
+      points: [
+        [new q.Point("#00FF00")]
+      ],
+      name: `Trello Notification`,
+      message: `You have ${actions.length} new actions in Trello.`,
+      link: {
+        url: 'https://trello.com/me/boards',
+        label: 'Check your Trello boards'
+      }
+    });
+  }
+
+
   async run() {
     console.log("Running.");
     return this.getNewActions().then(newActions => {
       this.timestamp = getTimestamp();
       if (newActions && newActions.length > 0) {
         logger.info("Got " + newActions.length + " new actions.");
-        return new q.Signal({
-          points: [[new q.Point("#00FF00")]],
-          name: `You have ${newActions.length} new actions in Trello.`
-        });
+        return this.generateSignal(newActions);
       } else {
         return null;
       }
