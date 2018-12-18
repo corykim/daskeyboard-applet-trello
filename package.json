@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "daskeyboard-applet": "^2.10.6"
+    "daskeyboard-applet": "2.10.6"
   },
   "qConfig": {
     "geometry": {
