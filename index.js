@@ -36,17 +36,24 @@ class Trello extends q.DesktopApp {
   constructor() {
     super();
     this.timestamp = getTimestamp();
-    // run every 1 min
+    // run every 5 min
     this.pollingInterval = 1*60*1000;
+    // For checking plural or singular
+    this.action ="";
   }
 
   generateSignal(actions) {
+    if(actions.length==1){
+      this.action="action";
+    }else{
+      this.action="actions";
+    }
     return new q.Signal({
       points: [
-        [new q.Point("#00FF00")]
+        [new q.Point("#0000FF",q.Effects.BLINK)]
       ],
-      name: `Trello Notification`,
-      message: `You have ${actions.length} new actions in Trello.`,
+      name: `Trello`,
+      message: `You have ${actions.length} ${this.action}.`,
       link: {
         url: 'https://trello.com/me/boards',
         label: 'Check your Trello boards'

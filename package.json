@@ -1,7 +1,7 @@
 {
   "name": "daskeyboard-applet--trello",
   "displayName": "Trello",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Displays Trello notifications",
   "longDescription": "Get a visual notification on your Q device when a Trello notification is waiting for you.",
   "officialProductName": "Trello",
