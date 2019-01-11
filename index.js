@@ -37,7 +37,7 @@ class Trello extends q.DesktopApp {
     super();
     this.timestamp = getTimestamp();
     // run every 5 min
-    this.pollingInterval = 1*60*1000;
+    this.pollingInterval = 5*60*1000;
     // For checking plural or singular
     this.action ="";
   }
