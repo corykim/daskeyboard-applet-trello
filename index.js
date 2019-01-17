@@ -56,7 +56,7 @@ class Trello extends q.DesktopApp {
       message: `You have ${actions.length} ${this.action}.`,
       link: {
         url: 'https://trello.com/me/boards',
-        label: 'Check your Trello boards'
+        label: 'Open in Trello'
       }
     });
   }

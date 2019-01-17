@@ -2,7 +2,7 @@
 
 Displays Trello notifications on a Das Keyboard Q Series.
 
-![Trello on a Das Keybaord Q](assets/image.png "Trello notification")
+![Trello applet on a Das Keybaord Q](assets/image.png "Das Keyboard Trello applet")
 
 ## Changelog
 
