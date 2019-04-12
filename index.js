@@ -50,7 +50,7 @@ class Trello extends q.DesktopApp {
     }
     return new q.Signal({
       points: [
-        [new q.Point("#0000FF",q.Effects.BLINK)]
+        [new q.Point(this.config.color,this.config.effect)]
       ],
       name: `Trello`,
       message: `You have ${actions.length} ${this.action}.`,
@@ -72,7 +72,18 @@ class Trello extends q.DesktopApp {
       } else {
         return null;
       }
-    })
+    }).catch(error=> {
+      logger.error(`Got error sending request to service: ${JSON.stringify(error)}`);
+      if(`${error.message}`.includes("getaddrinfo")){
+        return q.Signal.error(
+          'The Trello service returned an error. <b>Please check your internet connection</b>.'
+        );
+      }
+      return q.Signal.error([
+        'The Trello service returned an error. <b>Please check your API key and account</b>.',
+        `Detail: ${error.message}`
+      ]);
+    });
   }
 
   async getNewActions() {
