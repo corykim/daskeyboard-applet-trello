@@ -63,7 +63,7 @@ class Trello extends q.DesktopApp {
 
 
   async run() {
-    console.log("Running.");
+    logger.info("Trello running.");
     return this.getNewActions().then(newActions => {
       this.timestamp = getTimestamp();
       if (newActions && newActions.length > 0) {
