@@ -7,3 +7,5 @@ Trello lets you work more collaboratively and get more done.
 For more information about Trello visit <https://www.trello.com>.
 
 ![Trello applet on a Das Keybaord Q](assets/image.png "Das Keyboard Trello applet")
+
+This applet uses Trello [API](https://developers.trello.com/reference#introduction).
